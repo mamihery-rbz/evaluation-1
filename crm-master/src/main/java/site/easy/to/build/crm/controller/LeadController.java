@@ -26,6 +26,7 @@ import site.easy.to.build.crm.google.service.calendar.GoogleCalendarApiService;
 import site.easy.to.build.crm.google.service.drive.GoogleDriveApiService;
 import site.easy.to.build.crm.google.service.gmail.GoogleGmailApiService;
 import site.easy.to.build.crm.service.customer.CustomerService;
+import site.easy.to.build.crm.service.depense.DepenseService;
 import site.easy.to.build.crm.service.drive.GoogleDriveFileService;
 import site.easy.to.build.crm.service.file.FileService;
 import site.easy.to.build.crm.service.lead.LeadActionService;
@@ -61,11 +62,13 @@ public class LeadController {
     private final GoogleGmailApiService googleGmailApiService;
     private final EntityManager entityManager;
 
+    private final DepenseService depenseService;
+
     @Autowired
     public LeadController(LeadService leadService, AuthenticationUtils authenticationUtils, UserService userService, CustomerService customerService,
                           LeadActionService leadActionService, GoogleCalendarApiService googleCalendarApiService, FileService fileService,
                           GoogleDriveApiService googleDriveApiService, GoogleDriveFileService googleDriveFileService, FileUtil fileUtil,
-                          LeadEmailSettingsService leadEmailSettingsService, GoogleGmailApiService googleGmailApiService, EntityManager entityManager) {
+                          LeadEmailSettingsService leadEmailSettingsService, GoogleGmailApiService googleGmailApiService, EntityManager entityManager, DepenseService depenseService) {
         this.leadService = leadService;
         this.authenticationUtils = authenticationUtils;
         this.userService = userService;
@@ -79,7 +82,9 @@ public class LeadController {
         this.leadEmailSettingsService = leadEmailSettingsService;
         this.googleGmailApiService = googleGmailApiService;
         this.entityManager = entityManager;
+        this.depenseService = depenseService;
     }
+
 
     @GetMapping("/show/{id}")
     public String showDetails(@PathVariable("id") int id, Model model, Authentication authentication) {
@@ -90,6 +95,7 @@ public class LeadController {
         }
 
         Lead lead = leadService.findByLeadId(id);
+        Depense depense = depenseService.findByLead(lead);
 
         if(lead == null) {
             return  "error/not-found";
@@ -120,6 +126,7 @@ public class LeadController {
         model.addAttribute("lead", lead);
         model.addAttribute("event", eventDisplay);
         model.addAttribute("attachments", attachments);
+        model.addAttribute("depense", depense);
         return "lead/show-details";
     }
 

@@ -15,16 +15,12 @@ public class ConfigurationBaseService {
 
     @Transactional
     public void truncateAllTables() {
-        // Désactiver temporairement les contraintes de clés étrangères
         jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
 
-        // Récupérer toutes les tables de la base de données
         List<String> tables = jdbcTemplate.queryForList("SHOW TABLES", String.class);
 
-        // Liste des tables à ne pas supprimer
-        List<String> tablesAExclure = List.of("roles","oauth_users","user_profile","user_roles","users");
+        List<String> tablesAExclure = List.of("roles","oauth_users","user_profile","user_roles","users","employee","taux_alert");
 
-        // Truncate chaque table sauf celles à exclure
         for (String table : tables) {
             if (!tablesAExclure.contains(table)) {
                 jdbcTemplate.execute("TRUNCATE TABLE " + table);

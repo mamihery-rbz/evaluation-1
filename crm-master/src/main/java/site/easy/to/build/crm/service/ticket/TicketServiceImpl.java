@@ -8,6 +8,7 @@ import site.easy.to.build.crm.repository.TicketRepository;
 import site.easy.to.build.crm.entity.Ticket;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TicketServiceImpl implements TicketService{
@@ -89,5 +90,18 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public void deleteAllByCustomer(Customer customer) {
         ticketRepository.deleteAllByCustomer(customer);
+    }
+
+    public void deleteTicketById(Integer ticketId) {
+        ticketRepository.deleteById(ticketId);
+    }
+
+    // Mettre à jour un ticket
+    public Ticket updateTicket(Integer ticketId, Ticket updatedTicket) {
+        if (ticketRepository.existsById(ticketId)) {
+            updatedTicket.setTicketId(ticketId);
+            return ticketRepository.save(updatedTicket);
+        }
+        return null;
     }
 }

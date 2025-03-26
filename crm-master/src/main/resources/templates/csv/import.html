@@ -70,25 +70,43 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
+            <div th:if="${messageError}" class="alert alert-danger">
+                <strong>Erreur :</strong> <span th:text="${messageError}"></span>
+            </div>
+
+            <div th:if="${message}" class="alert alert-success">
+                <strong>Success :</strong> <span th:text="${message}"></span>
+            </div>
             <div class="row">
+
                 <form th:action="@{/csv/upload}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="entityName">Sélectionner une entité</label>
-                        <select name="entityName" id="entityName" class="form-control" required>
-                            <option value="" hidden="">Choisissez une entité</option>
-                            <th:block th:each="entity : ${entities}">
-                                <option th:value="${entity.simpleName}" th:text="${entity.simpleName}">Entity Name</option>
+                        <label for="separator">Sélectionner un separateur</label>
+                        <select name="separator" id="separator" class="form-control" required>
+                            <option value="" hidden="">Choisissez un separateur</option>
+                            <th:block th:each="separator : ${separators}">
+                                <option th:value="${separator}" th:text="${separator}">Separator Name</option>
                             </th:block>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="csvFile">Sélectionner un fichier CSV</label>
+                        <label for="csvFile">Sélectionner un fichier customer</label>
                         <input type="file" name="file" id="csvFile" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="csvFile2">Sélectionner un fichier budget</label>
+                        <input type="file" name="file2" id="csvFile2" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="csvFile1">Sélectionner un fichier lead/ticket</label>
+                        <input type="file" name="file1" id="csvFile1" class="form-control" required />
                     </div>
 
                     <button type="submit" class="btn btn-primary">Importer</button>
                 </form>
+                <script th:if="${message != null}">
+                    alert(${message});
+                </script>
             </div>
             <!-- ============================================================== -->
             <!-- End Page Content -->

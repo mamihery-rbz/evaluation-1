@@ -4,6 +4,7 @@ import site.easy.to.build.crm.entity.Customer;
 import site.easy.to.build.crm.entity.Lead;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LeadService {
     public Lead findByLeadId(int id);
@@ -31,4 +32,5 @@ public interface LeadService {
     List<Lead> getRecentLeadsByEmployee(int employeeId, int limit);
     List<Lead> getRecentCustomerLeads(int customerId, int limit);
     public void deleteAllByCustomer(Customer customer);
+
 }
