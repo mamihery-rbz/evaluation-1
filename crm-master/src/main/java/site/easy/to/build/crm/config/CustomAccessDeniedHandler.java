@@ -10,6 +10,8 @@ import java.io.IOException;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+        System.out.println("⛔️ Accès refusé pour l'URL: " + request.getRequestURI());
+        System.out.println("📢 Raison: " + accessDeniedException.getMessage());
         response.sendRedirect("/access-denied");
     }
 }

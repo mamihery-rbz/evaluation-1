@@ -1,0 +1,18 @@
+Installation de l'image mysql 8
+docker build -t mysql8-custom .
+
+Lancer le container mysql 8
+docker run -d --name mysql8-container -p 3306:3306 mysql8-custom
+
+Copie du fichier sql dans le container :
+docker cp .\src\main\resources\schema.sql mysql8-container:/schema.sql
+
+importation de schema.sql dans la bdd crm :
+Get-Content .\src\main\resources\schema.sql | docker exec -i mysql8-container mysql -u myuser -pmypassword crm
+
+Pour entrer dans mysql avec la bdd crm
+docker exec -it mysql8-container mysql -u myuser -pmypassword crm
+
+
+Pour supprimer l'image
+docker rmi sha256:109150039350d54af18fa7ab4ca6cc199c334c918592bc1d64e04e81bd3e192f

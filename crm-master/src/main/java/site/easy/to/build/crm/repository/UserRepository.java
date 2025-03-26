@@ -24,5 +24,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     long count();
 
+//    List<User> findByRoleId(int role);
+
+    List<User> findByRoles_Id(int roleId);
+
+
     public List<User> findTopNByOrderByCreatedAtDesc(int limit, Pageable pageable);
 }

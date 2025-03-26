@@ -4,6 +4,7 @@ import site.easy.to.build.crm.entity.Customer;
 import site.easy.to.build.crm.entity.Ticket;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TicketService {
     public Ticket findByTicketId(int id);
@@ -33,4 +34,11 @@ public interface TicketService {
     long countByCustomerCustomerId(int customerId);
 
     void deleteAllByCustomer(Customer customer);
+
+    void deleteTicketById(Integer ticketId);
+
+    Ticket updateTicket(Integer ticketId, Ticket updatedTicket);
+
+
+//    List<Map<String, Object>> fim();
 }

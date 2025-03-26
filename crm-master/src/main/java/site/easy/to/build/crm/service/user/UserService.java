@@ -22,4 +22,5 @@ public interface UserService {
 
     public List<User> findAll();
 
+    List<User> getUsersByRoleId(int role);
 }

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Customer {
 
     public interface CustomerUpdateValidationGroupInclusion {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
